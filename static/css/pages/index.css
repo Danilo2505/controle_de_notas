@@ -23,7 +23,7 @@
 
 table {
   border: 1px solid white;
-  width: 100%;
+  width: fit-content;
   border-collapse: collapse; /* Colapsa bordas adjacentes em uma só */
 }
 
@@ -59,6 +59,14 @@ tr > th:nth-child(2),
 tr > th:nth-child(3) {
   width: 200px;
 }
+
+/* Primeira coluna */
+tr > th:first-child,
+tr > td:first-child {
+  min-width: 500px;
+}
+
+/* Última coluna */
 tr > td:last-child {
   display: inline-flex;
   justify-content: center;
