@@ -75,19 +75,28 @@ def init_db():
 init_db()
 
 
+# Ler
 @app.route("/")
 def index():
     return render_template("index.html")
 
 
+# Criar
 @app.route("/adicionar.html")
 def adicionar_html():
     return render_template("adicionar.html")
 
 
-@app.route("/gerenciar.html")
-def gerenciar_html():
-    return render_template("adicionar.html")
+# Excluir
+@app.route("/excluir.html")
+def excluir_html():
+    return render_template("excluir.html")
+
+
+# Atualizar
+@app.route("/atualizar.html")
+def atualizar_html():
+    return render_template("atualizar.html")
 
 
 if __name__ == "__main__":
