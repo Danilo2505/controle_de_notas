@@ -20,3 +20,56 @@
 #div-top-bar a {
   color: white;
 }
+
+table {
+  border: 1px solid white;
+  width: fit-content;
+  border-collapse: collapse; /* Colapsa bordas adjacentes em uma só */
+}
+
+tr {
+  border-bottom: 1px solid white;
+}
+
+th,
+td {
+  padding: 0.5rem;
+}
+
+tr > th {
+  width: auto;
+}
+
+/* Colunas alinhadas à esquerda */
+tr > th:nth-child(1),
+tr > td:nth-child(1) {
+  text-align: left;
+}
+
+/* Colunas alinhadas ao centro */
+tr > th:nth-child(2),
+tr > td:nth-child(2),
+tr > th:nth-child(3),
+tr > td:nth-child(3) {
+  text-align: center;
+}
+
+/* Última coluna */
+tr > th:nth-child(2),
+tr > th:nth-child(3) {
+  width: 200px;
+}
+
+/* Primeira coluna */
+tr > th:first-child,
+tr > td:first-child {
+  min-width: 500px;
+}
+
+/* Última coluna */
+tr > td:last-child {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
