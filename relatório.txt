@@ -1,0 +1,29 @@
+29/09
+- Back-end e arquivos básicos, início da tela index.html
+    - Danilo
+- Design no Figma (Tela adicionar.html)
+    - Ana Clara e Cícero Victor
+
+30/09
+- Tela index.html básica
+    - Danilo
+- Design no Figma (Tela index.html)
+    - Ana Clara e Cícero Victor
+
+01/10
+- 
+    - 
+- 
+    - 
+
+02/10
+- 
+    - 
+- 
+    -  
+
+03/10
+- 
+    - 
+- 
+    -  

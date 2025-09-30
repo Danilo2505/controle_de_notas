@@ -1,0 +1,65 @@
+table {
+  border: 1px solid white;
+  width: fit-content;
+  border-collapse: collapse; /* Colapsa bordas adjacentes em uma só */
+}
+
+tr {
+  border-bottom: 1px solid white;
+}
+
+th,
+td {
+  padding: 0.5rem;
+}
+
+tr > th {
+  width: auto;
+}
+
+/* ----- Lista dos alunos ----- */
+/* Colunas alinhadas à esquerda */
+#table-listagem-alunos tr > th:nth-child(1),
+#table-listagem-alunos tr > td:nth-child(1) {
+  text-align: left;
+}
+
+/* Colunas alinhadas ao centro */
+#table-listagem-alunos tr > th:nth-child(2),
+#table-listagem-alunos tr > td:nth-child(2),
+#table-listagem-alunos tr > th:nth-child(3),
+#table-listagem-alunos tr > td:nth-child(3) {
+  text-align: center;
+}
+
+/* Última coluna */
+#table-listagem-alunos tr > th:nth-child(2),
+#table-listagem-alunos tr > th:nth-child(3) {
+  width: 200px;
+}
+
+/* Primeira coluna */
+#table-listagem-alunos tr > th:first-child,
+#table-listagem-alunos tr > td:first-child {
+  min-width: 500px;
+}
+
+/* Última coluna */
+#table-listagem-alunos tr > td:last-child {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* ----- Modal de conteúdo ----- */
+#modal-notas-alunos .modal-conteudo tr > th,
+#modal-notas-alunos .modal-conteudo tr > td {
+  text-align: center;
+}
+
+/* ----- Primeira coluna ----- */
+#modal-notas-alunos .modal-conteudo tr > th:first-child,
+#modal-notas-alunos .modal-conteudo tr > td:first-child {
+  text-align: left;
+}

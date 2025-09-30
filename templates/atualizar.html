@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atualizar Notas</title>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="/static/css/reset.css" />
+    <link rel="stylesheet" href="/static/css/fonts.css" />
+    <link rel="stylesheet" href="/static/css/global.css" />
+    <link rel="stylesheet" href="/static/css/pages/atualizar.css" />
+  </head>
+  <!-- Scripts JS -->
+  <script src="/static/js/components.js" defer></script>
+  <script src="/static/js/helpers.js"></script>
+  <script src="/static/js/pages/atualizar.js" defer></script>
+  <body>
+    <!-- Componente -->
+    <div id="div-top-bar">
+      <h1>Atualizar Dados</h1>
+    </div>
+
+    <section class="section-escolher-modo-edicao">
+      <h2>Selecione o que deseja editar</h2>
+
+      <select name="Select da Sala" id="select-sala">
+        <option value="disciplina">Disciplina</option>
+        <option value="sala">Sala</option>
+        <option value="aluno">Aluno</option>
+        <option value="nota">Nota</option>
+      </select>
+    </section>
+
+    <section class="section-disciplina escondido">
+      <h2>Disciplina</h2>
+
+      <form action="POST">
+        <label for="input-nome-disciplina">Nome:</label>
+        <input
+          name="Nome da Disciplina"
+          id="input-nome-disciplina"
+          type="text"
+        />
+
+        <input type="submit" value="Adicionar Disciplina" />
+      </form>
+    </section>
+
+    <section class="section-sala escondido">
+      <h2>Sala</h2>
+
+      <form action="POST">
+        <label for="input-nome-sala">Nome:</label>
+        <input name="Nome da Sala" id="input-nome-sala" type="text" />
+
+        <input type="submit" value="Adicionar Sala" />
+      </form>
+    </section>
+
+    <section class="section-aluno escondido">
+      <h2>Aluno</h2>
+
+      <form action="POST">
+        <label for="input-nome-aluno">Nome Completo:</label>
+        <input
+          name="Nome Completo do Aluno"
+          id="input-nome-aluno"
+          type="text"
+        />
+
+        <label for="input-data-nascimento-aluno">Data de Nascimento:</label>
+        <input
+          name="Data de Nascimento do Aluno"
+          id="input-data-nascimento-aluno"
+          type="date"
+        />
+
+        <input type="submit" value="Adicionar Aluno" />
+      </form>
+    </section>
+
+    <section class="section-nota escondido">
+      <h2>Nota</h2>
+
+      <form action="POST">
+        <label for="select-sala">Sala:</label>
+        <select name="Select da Sala" id="select-sala">
+          <option value="1">1º ano</option>
+          <option value="2">2º ano</option>
+          <option value="3">3º ano</option>
+        </select>
+
+        <label for="select-aluno">Aluno:</label>
+        <select name="Select da Aluno" id="select-aluno">
+          <option value="1">Camila</option>
+          <option value="2">Júlio</option>
+          <option value="3">Fernanda</option>
+          <option value="4">Marcos</option>
+          <option value="5">Ana</option>
+          <option value="6">Ricardo</option>
+          <option value="7">Renata</option>
+          <option value="8">Vítor</option>
+          <option value="9">Rosângela</option>
+          <option value="10">Fábio</option>
+        </select>
+
+        <label for="select-disciplina">Disciplina:</label>
+        <select name="Select da Disciplina" id="select-disciplina">
+          <option value="1">Biologia</option>
+          <option value="2">Física</option>
+          <option value="3">Matemática</option>
+          <option value="4">Portugês</option>
+          <option value="5">Química</option>
+        </select>
+
+        <label for="select-nota-bimestre">Bimestre:</label>
+        <select name="Select do Bimestre" id="select-nota-bimestre">
+          <option value="1">1º bimestre</option>
+          <option value="2">2º bimestre</option>
+          <option value="3">3º bimestre</option>
+          <option value="4">4º bimestre</option>
+        </select>
+
+        <label for="input-nota-valor">Nota:</label>
+        <input
+          name="Valor da Nota"
+          id="input-nota-valor"
+          type="number"
+          step="any"
+        />
+
+        <input type="submit" value="Adicionar Nota" />
+    </section>
+  </body>
+</html>

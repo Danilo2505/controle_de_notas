@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Controle de Notas</title>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="/static/css/reset.css" />
+    <link rel="stylesheet" href="/static/css/fonts.css" />
+    <link rel="stylesheet" href="/static/css/global.css" />
+    <link rel="stylesheet" href="/static/css/pages/index.css" />
+  </head>
+  <!-- Scripts JS -->
+  <script src="/static/js/components.js" defer></script>
+  <script src="/static/js/helpers.js"></script>
+  <script src="/static/js/pages/index.js" defer></script>
+  <body>
+    <!-- Componente -->
+    <div id="div-top-bar">
+      <h1>Controle de Notas</h1>
+    </div>
+    <h2>Alunos</h2>
+    <table id="table-listagem-alunos">
+      <colgroup>
+        <col span="1" style="visibility: collapse" />
+        <!-- Oculta a primeira colua, a dos IDs -->
+        <col span="1" />
+        <col span="1" />
+        <col span="1" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Sala</th>
+          <th>Notas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Camila</td>
+          <td>2º ano D</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Júlio</td>
+          <td>1º ano A</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Fernanda</td>
+          <td>3º ano B</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Marcos</td>
+          <td>1º ano C</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Ana</td>
+          <td>3º ano A</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Ricardo</td>
+          <td>2º ano A</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Renata</td>
+          <td>1º ano D</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Vítor</td>
+          <td>2º ano B</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Rosângela</td>
+          <td>3º ano D</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Fábio</td>
+          <td>2º ano C</td>
+          <td>
+            <button>
+              <img
+                src="/static/assets/icons/eye-fill.svg"
+                alt=""
+                onload="buscarSvg(this)"
+              />
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="modal-notas-alunos" class="modal">
+      <div class="modal-conteudo">
+        <div class="div-top-modal">
+          <h3>Notas de <span></span></h3>
+          <button class="button-fechar">
+            <img
+              src="/static/assets/icons/x-circle.svg"
+              alt=""
+              onload="buscarSvg(this)"
+            />
+          </button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Disciplina</th>
+              <th>1º</th>
+              <th>2º</th>
+              <th>3º</th>
+              <th>4º</th>
+              <th>Média</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Matemática</td>
+              <td>7</td>
+              <td>8</td>
+              <td>7</td>
+              <td>10</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>Portugês</td>
+              <td>7</td>
+              <td>8</td>
+              <td>7</td>
+              <td>10</td>
+              <td>8</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
