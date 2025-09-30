@@ -28,6 +28,26 @@ svg {
   height: auto;
 }
 
+/* ----- Formulários ----- */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+select,
+input {
+  border: 1px solid white;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 1.1rem;
+}
+
+input {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
 /* ----- Modais ----- */
 .modal {
   display: none; /* Oculto por padrão */

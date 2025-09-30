@@ -1,7 +1,6 @@
 /* Famílias de fontes */
 body * {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Font weights utilitários */
@@ -45,6 +44,12 @@ th {
   font-weight: 400;
 }
 
+label {
+  line-height: 1.25;
+  margin: 0.5rem 0 0.5rem;
+  font-weight: 600;
+}
+
 /* Cabeçalhos responsivos */
 h1,
 h2,
@@ -72,6 +77,7 @@ h4 {
 h5 {
   font-size: 1.5rem;
 }
+label,
 h6 {
   font-size: 1.25rem;
   font-weight: 500;
@@ -94,6 +100,7 @@ h6 {
   h5 {
     font-size: 1.125rem;
   }
+  label,
   h6 {
     font-size: 1rem;
   }
@@ -124,6 +131,7 @@ h6 {
   h5 {
     font-size: 1rem;
   }
+  label,
   h6 {
     font-size: 0.95rem;
   }

@@ -21,6 +21,14 @@ def init_db():
     # Ativar chaves estrangeiras
     cursor.execute("PRAGMA foreign_keys = ON;")
 
+    # Bimestres
+    sql_disciplinas = """
+    CREATE TABLE IF NOT EXISTS bimestre (
+        id_bimestre INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL UNIQUE
+    );
+    """
+
     # Disciplinas
     sql_disciplinas = """
     CREATE TABLE IF NOT EXISTS disciplinas (
