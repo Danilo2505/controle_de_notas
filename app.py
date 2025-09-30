@@ -15,29 +15,12 @@ def serve_specific_file(filename):
 
 # Banco de dados
 def init_db():
-    # Conecta ao banco de dados (se não existir, ele será criado)
     conn = sqlite3.connect("controle_de_notas.db")
-
-    # Cria um objeto cursor para executar comandos SQL
     cursor = conn.cursor()
 
-    # Comandos SQL para criar as tabelas
-    # Alunos
-    sql_alunos = """
-    CREATE TABLE IF NOT EXISTS alunos (
-        id_aluno INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL,
-        data_nascimento DATE
-    );
-    """
-    # Salas
-    sql_salas = """
-    CREATE TABLE IF NOT EXISTS salas (
-        id_sala INTEGER PRIMARY KEY AUTOINCREMENT,
-        numero TEXT NOT NULL UNIQUE,
-        capacidade INTEGER
-    );
-    """
+    # Ativar chaves estrangeiras
+    cursor.execute("PRAGMA foreign_keys = ON;")
+
     # Disciplinas
     sql_disciplinas = """
     CREATE TABLE IF NOT EXISTS disciplinas (
@@ -45,6 +28,24 @@ def init_db():
         nome TEXT NOT NULL UNIQUE
     );
     """
+
+    # Salas
+    sql_salas = """
+    CREATE TABLE IF NOT EXISTS salas (
+        id_sala INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL UNIQUE
+    );
+    """
+
+    # Alunos
+    sql_alunos = """
+    CREATE TABLE IF NOT EXISTS alunos (
+        id_aluno INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        data_nascimento TEXT
+    );
+    """
+
     # Notas
     sql_notas = """
     CREATE TABLE IF NOT EXISTS notas (
@@ -52,24 +53,21 @@ def init_db():
         id_aluno INTEGER NOT NULL,
         id_disciplina INTEGER NOT NULL,
         valor REAL NOT NULL,
-        FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno),
-        FOREIGN KEY (id_disciplina) REFERENCES disciplinas(id_disciplina)
+        bimestre INTEGER NOT NULL,
+        FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno) ON DELETE CASCADE,
+        FOREIGN KEY (id_disciplina) REFERENCES disciplinas(id_disciplina) ON DELETE CASCADE
     );
     """
 
-    # Executa os comandos de criação das tabelas
     cursor.execute(sql_alunos)
     cursor.execute(sql_salas)
     cursor.execute(sql_disciplinas)
     cursor.execute(sql_notas)
 
-    # Confirma as alterações no banco de dados
     conn.commit()
-
-    # Fecha a conexão
     conn.close()
-
     print("Banco de dados e tabelas criados com sucesso!")
+
 
 
 init_db()
