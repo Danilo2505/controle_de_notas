@@ -23,7 +23,7 @@ function carregarTabelaNotasAluno(idAluno) {
 }
 
 function mostrarModalNotas() {
-  modalNotasAlunos.style.display = "block";
+  modalNotasAlunos.style.display = "flex";
 }
 
 function fecharModalNotas() {
