@@ -17,7 +17,120 @@
   <body>
     <!-- Componente -->
     <div id="div-top-bar">
-      <h1>Excluir Notas</h1>
+      <h1>Excluir Dados</h1>
     </div>
+
+    <section id="section-escolher-modo-exclusao">
+      <h2>Selecione o que deseja excluir</h2>
+
+      <select name="Select do Modo de Exclusão" id="select-exclusao">
+        <option value="disciplina">Disciplina</option>
+        <option value="sala">Sala</option>
+        <option value="aluno">Aluno</option>
+        <option value="nota">Nota</option>
+      </select>
+    </section>
+
+    <section id="section-disciplina" class="escondido">
+      <h2>Disciplina</h2>
+
+      <form action="POST">
+        <label for="input-nome-disciplina">Nome:</label>
+        <input
+          name="Nome da Disciplina"
+          id="input-nome-disciplina"
+          type="text"
+        />
+
+        <input type="submit" value="Excluir Disciplina" />
+      </form>
+    </section>
+
+    <section id="section-sala" class="escondido">
+      <h2>Sala</h2>
+
+      <form action="POST">
+        <label for="input-nome-sala">Nome:</label>
+        <input name="Nome da Sala" id="input-nome-sala" type="text" />
+
+        <input type="submit" value="Excluir Sala" />
+      </form>
+    </section>
+
+    <section id="section-aluno" class="escondido">
+      <h2>Aluno</h2>
+
+      <form action="POST">
+        <label for="input-nome-aluno">Nome Completo:</label>
+        <input
+          name="Nome Completo do Aluno"
+          id="input-nome-aluno"
+          type="text"
+        />
+
+        <label for="input-data-nascimento-aluno">Data de Nascimento:</label>
+        <input
+          name="Data de Nascimento do Aluno"
+          id="input-data-nascimento-aluno"
+          type="date"
+        />
+
+        <input type="submit" value="Excluir Aluno" />
+      </form>
+    </section>
+
+    <section id="section-nota" class="escondido">
+      <h2>Nota</h2>
+
+      <form action="POST">
+        <label for="select-sala">Sala:</label>
+        <select name="Select da Sala" id="select-sala">
+          <option value="1">1º ano</option>
+          <option value="2">2º ano</option>
+          <option value="3">3º ano</option>
+        </select>
+
+        <label for="select-aluno">Aluno:</label>
+        <select name="Select da Aluno" id="select-aluno">
+          <option value="1">Camila</option>
+          <option value="2">Júlio</option>
+          <option value="3">Fernanda</option>
+          <option value="4">Marcos</option>
+          <option value="5">Ana</option>
+          <option value="6">Ricardo</option>
+          <option value="7">Renata</option>
+          <option value="8">Vítor</option>
+          <option value="9">Rosângela</option>
+          <option value="10">Fábio</option>
+        </select>
+
+        <label for="select-disciplina">Disciplina:</label>
+        <select name="Select da Disciplina" id="select-disciplina">
+          <option value="1">Biologia</option>
+          <option value="2">Física</option>
+          <option value="3">Matemática</option>
+          <option value="4">Portugês</option>
+          <option value="5">Química</option>
+        </select>
+
+        <label for="select-nota-bimestre">Bimestre:</label>
+        <select name="Select do Bimestre" id="select-nota-bimestre">
+          <option value="1">1º bimestre</option>
+          <option value="2">2º bimestre</option>
+          <option value="3">3º bimestre</option>
+          <option value="4">4º bimestre</option>
+        </select>
+
+        <label for="input-nota-valor">Nota:</label>
+        <input
+          name="Valor da Nota"
+          id="input-nota-valor"
+          type="number"
+          step="any"
+        />
+
+        <input type="submit" value="Excluir Nota" />
+      </form>
+    </section>
   </body>
 </html>
