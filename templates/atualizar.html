@@ -20,10 +20,10 @@
       <h1>Atualizar Dados</h1>
     </div>
 
-    <section class="section-escolher-modo-edicao">
+    <section id="section-escolher-modo-edicao">
       <h2>Selecione o que deseja editar</h2>
 
-      <select name="Select da Sala" id="select-sala">
+      <select name="Select do Modo de Edição" id="select-ediciao">
         <option value="disciplina">Disciplina</option>
         <option value="sala">Sala</option>
         <option value="aluno">Aluno</option>
@@ -31,7 +31,7 @@
       </select>
     </section>
 
-    <section class="section-disciplina escondido">
+    <section id="section-disciplina" class="escondido">
       <h2>Disciplina</h2>
 
       <form action="POST">
@@ -42,22 +42,22 @@
           type="text"
         />
 
-        <input type="submit" value="Adicionar Disciplina" />
+        <input type="submit" value="Atualizar Disciplina" />
       </form>
     </section>
 
-    <section class="section-sala escondido">
+    <section id="section-sala" class="escondido">
       <h2>Sala</h2>
 
       <form action="POST">
         <label for="input-nome-sala">Nome:</label>
         <input name="Nome da Sala" id="input-nome-sala" type="text" />
 
-        <input type="submit" value="Adicionar Sala" />
+        <input type="submit" value="Atualizar Sala" />
       </form>
     </section>
 
-    <section class="section-aluno escondido">
+    <section id="section-aluno" class="escondido">
       <h2>Aluno</h2>
 
       <form action="POST">
@@ -75,11 +75,11 @@
           type="date"
         />
 
-        <input type="submit" value="Adicionar Aluno" />
+        <input type="submit" value="Atualizar Aluno" />
       </form>
     </section>
 
-    <section class="section-nota escondido">
+    <section id="section-nota" class="escondido">
       <h2>Nota</h2>
 
       <form action="POST">
@@ -129,7 +129,8 @@
           step="any"
         />
 
-        <input type="submit" value="Adicionar Nota" />
+        <input type="submit" value="Atualizar Nota" />
+      </form>
     </section>
   </body>
 </html>
