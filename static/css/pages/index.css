@@ -13,39 +13,39 @@ td {
   padding: 0.5rem;
 }
 
-tr > th {
+th {
   width: auto;
 }
 
 /* ----- Lista dos alunos ----- */
 /* Colunas alinhadas à esquerda */
-#table-listagem-alunos tr > th:nth-child(1),
-#table-listagem-alunos tr > td:nth-child(1) {
+#table-listagem-alunos th:nth-child(1),
+#table-listagem-alunos td:nth-child(1) {
   text-align: left;
 }
 
 /* Colunas alinhadas ao centro */
-#table-listagem-alunos tr > th:nth-child(2),
-#table-listagem-alunos tr > td:nth-child(2),
-#table-listagem-alunos tr > th:nth-child(3),
-#table-listagem-alunos tr > td:nth-child(3) {
+#table-listagem-alunos th:nth-child(2),
+#table-listagem-alunos td:nth-child(2),
+#table-listagem-alunos th:nth-child(3),
+#table-listagem-alunos td:nth-child(3) {
   text-align: center;
 }
 
 /* Última coluna */
-#table-listagem-alunos tr > th:nth-child(2),
-#table-listagem-alunos tr > th:nth-child(3) {
+#table-listagem-alunos th:nth-child(2),
+#table-listagem-alunos th:nth-child(3) {
   width: 200px;
 }
 
 /* Primeira coluna */
-#table-listagem-alunos tr > th:first-child,
-#table-listagem-alunos tr > td:first-child {
+#table-listagem-alunos th:first-child,
+#table-listagem-alunos td:first-child {
   min-width: 500px;
 }
 
 /* Última coluna */
-#table-listagem-alunos tr > td:last-child {
+#table-listagem-alunos td:last-child {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -53,13 +53,18 @@ tr > th {
 }
 
 /* ----- Modal de conteúdo ----- */
-#modal-notas-alunos .modal-conteudo tr > th,
-#modal-notas-alunos .modal-conteudo tr > td {
+#modal-notas-alunos > div > div > h3 > span {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+#table-notas-aluno th,
+#table-notas-aluno td {
   text-align: center;
 }
 
 /* ----- Primeira coluna ----- */
-#modal-notas-alunos .modal-conteudo tr > th:first-child,
-#modal-notas-alunos .modal-conteudo tr > td:first-child {
+#table-notas-aluno tr th:first-child,
+#table-notas-aluno tr td:first-child {
   text-align: left;
 }

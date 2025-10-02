@@ -19,6 +19,7 @@
     <div id="div-top-bar">
       <h1>Controle de Notas</h1>
     </div>
+
     <h2>Alunos</h2>
     <table id="table-listagem-alunos">
       <colgroup>
@@ -28,6 +29,7 @@
         <col span="1" />
         <col span="1" />
       </colgroup>
+
       <thead>
         <tr>
           <th>ID</th>
@@ -36,11 +38,13 @@
           <th>Notas</th>
         </tr>
       </thead>
+
       <tbody>
+        {% for aluno in alunos %}
         <tr>
-          <td>1</td>
-          <td>Camila</td>
-          <td>2º ano D</td>
+          <td>{{ aluno.id_aluno }}</td>
+          <td>{{ aluno.nome }}</td>
+          <td>{{ aluno.nome_sala }}</td>
           <td>
             <button>
               <img
@@ -51,134 +55,10 @@
             </button>
           </td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>Júlio</td>
-          <td>1º ano A</td>
-          <td>
-            <button>
-              <img
-                src="/static/assets/icons/eye-fill.svg"
-                alt=""
-                onload="buscarSvg(this)"
-              />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Fernanda</td>
-          <td>3º ano B</td>
-          <td>
-            <button>
-              <img
-                src="/static/assets/icons/eye-fill.svg"
-                alt=""
-                onload="buscarSvg(this)"
-              />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Marcos</td>
-          <td>1º ano C</td>
-          <td>
-            <button>
-              <img
-                src="/static/assets/icons/eye-fill.svg"
-                alt=""
-                onload="buscarSvg(this)"
-              />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Ana</td>
-          <td>3º ano A</td>
-          <td>
-            <button>
-              <img
-                src="/static/assets/icons/eye-fill.svg"
-                alt=""
-                onload="buscarSvg(this)"
-              />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>Ricardo</td>
-          <td>2º ano A</td>
-          <td>
-            <button>
-              <img
-                src="/static/assets/icons/eye-fill.svg"
-                alt=""
-                onload="buscarSvg(this)"
-              />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>Renata</td>
-          <td>1º ano D</td>
-          <td>
-            <button>
-              <img
-                src="/static/assets/icons/eye-fill.svg"
-                alt=""
-                onload="buscarSvg(this)"
-              />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>Vítor</td>
-          <td>2º ano B</td>
-          <td>
-            <button>
-              <img
-                src="/static/assets/icons/eye-fill.svg"
-                alt=""
-                onload="buscarSvg(this)"
-              />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>9</td>
-          <td>Rosângela</td>
-          <td>3º ano D</td>
-          <td>
-            <button>
-              <img
-                src="/static/assets/icons/eye-fill.svg"
-                alt=""
-                onload="buscarSvg(this)"
-              />
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>10</td>
-          <td>Fábio</td>
-          <td>2º ano C</td>
-          <td>
-            <button>
-              <img
-                src="/static/assets/icons/eye-fill.svg"
-                alt=""
-                onload="buscarSvg(this)"
-              />
-            </button>
-          </td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
+
     <div id="modal-notas-alunos" class="modal">
       <div class="modal-conteudo">
         <div class="div-top-modal">
@@ -191,7 +71,8 @@
             />
           </button>
         </div>
-        <table>
+
+        <table id="table-notas-aluno">
           <thead>
             <tr>
               <th>Disciplina</th>
@@ -202,24 +83,7 @@
               <th>Média</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Matemática</td>
-              <td>7</td>
-              <td>8</td>
-              <td>7</td>
-              <td>10</td>
-              <td>8</td>
-            </tr>
-            <tr>
-              <td>Portugês</td>
-              <td>7</td>
-              <td>8</td>
-              <td>7</td>
-              <td>10</td>
-              <td>8</td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
