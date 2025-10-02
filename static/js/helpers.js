@@ -12,6 +12,19 @@ const buscarSvg = (image) => {
     });
 };
 
+// Calcula a média de um array
+function calculateAverage(arr) {
+  if (arr.length === 0) {
+    return 0; // Handle empty array case to avoid division by zero
+  }
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum / arr.length;
+}
+
+// ----- Consultas de API -----
 // Faz uma consulta de API e retorna o resultado
 async function pegarDadosDoFlask(link) {
   try {
@@ -27,13 +40,33 @@ async function pegarDadosDoFlask(link) {
   }
 }
 
-function calculateAverage(arr) {
-  if (arr.length === 0) {
-    return 0; // Handle empty array case to avoid division by zero
+// Adiciona um item a uma tabela via API.
+async function adicionarDadoFlask(tabela, valores) {
+  const dados = { tabela, valores };
+
+  const opcoes = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dados),
+  };
+
+  try {
+    const resposta = await fetch("/api/adicionar", opcoes);
+
+    // O fetch não lança erro para status como 400 ou 500, então verificamos manualmente.
+    if (!resposta.ok) {
+      // Analisa a resposta JSON para obter a mensagem de erro do servidor.
+      const erroData = await resposta.json();
+      throw new Error(
+        `Erro do servidor: ${resposta.status} - ${erroData.mensagem}`
+      );
+    }
+
+    return await resposta.json(); // Retorna os dados da resposta em caso de sucesso.
+  } catch (erro) {
+    console.error("Erro na requisição:", erro);
+    throw erro; // Propaga o erro para o código que chamou a função.
   }
-  let sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    sum += arr[i];
-  }
-  return sum / arr.length;
 }

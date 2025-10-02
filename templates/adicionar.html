@@ -13,6 +13,7 @@
   <!-- Scripts JS -->
   <script src="/static/js/components.js" defer></script>
   <script src="/static/js/helpers.js"></script>
+  <script src="/static/js/forms.js" defer></script>
   <script src="/static/js/pages/adicionar.js" defer></script>
   <body>
     <!-- Componente -->
@@ -20,7 +21,18 @@
       <h1>Adicionar Notas</h1>
     </div>
 
-    <section class="section-disciplina">
+    <section id="section-escolher-modo">
+      <h2>Selecione o que deseja adicionar</h2>
+
+      <select name="Select do Modo de Adição" id="select-adicao">
+        <option value="disciplina">Disciplina</option>
+        <option value="sala">Sala</option>
+        <option value="aluno">Aluno</option>
+        <option value="nota">Nota</option>
+      </select>
+    </section>
+
+    <section id="section-disciplina" class="escondido">
       <h2>Disciplina</h2>
 
       <form action="POST">
@@ -35,9 +47,7 @@
       </form>
     </section>
 
-    <hr />
-
-    <section class="section-sala">
+    <section id="section-sala" class="escondido">
       <h2>Sala</h2>
 
       <form action="POST">
@@ -48,9 +58,7 @@
       </form>
     </section>
 
-    <hr />
-
-    <section class="section-aluno">
+    <section id="section-aluno" class="escondido">
       <h2>Aluno</h2>
 
       <form action="POST">
@@ -61,59 +69,49 @@
           type="text"
         />
 
-        <label for="input-data-nascimento-aluno">Data de Nascimento:</label>
-        <input
-          name="Data de Nascimento do Aluno"
-          id="input-data-nascimento-aluno"
-          type="date"
-        />
+        <label for="select-aluno-sala">Sala:</label>
+        <select name="Select da Sala" id="select-aluno-sala">
+          {% for sala in salas %}
+          <option value="{{ sala.id_sala }}">{{ sala.nome }}</option>
+          {% endfor %}
+        </select>
 
         <input type="submit" value="Adicionar Aluno" />
       </form>
     </section>
 
-    <hr />
-
-    <section class="section-nota">
+    <section id="section-nota" class="escondido">
       <h2>Nota</h2>
 
       <form action="POST">
         <label for="select-sala">Sala:</label>
         <select name="Select da Sala" id="select-sala">
-          <option value="1">1º ano</option>
-          <option value="2">2º ano</option>
-          <option value="3">3º ano</option>
+          {% for sala in salas %}
+          <option value="{{ sala.id_sala }}">{{ sala.nome }}</option>
+          {% endfor %}
         </select>
 
         <label for="select-aluno">Aluno:</label>
-        <select name="Select da Aluno" id="select-aluno">
-          <option value="1">Camila</option>
-          <option value="2">Júlio</option>
-          <option value="3">Fernanda</option>
-          <option value="4">Marcos</option>
-          <option value="5">Ana</option>
-          <option value="6">Ricardo</option>
-          <option value="7">Renata</option>
-          <option value="8">Vítor</option>
-          <option value="9">Rosângela</option>
-          <option value="10">Fábio</option>
+        <select name="id_aluno" id="select-aluno">
+          <option value="">Selecione uma sala primeiro</option>
         </select>
 
         <label for="select-disciplina">Disciplina:</label>
         <select name="Select da Disciplina" id="select-disciplina">
-          <option value="1">Biologia</option>
-          <option value="2">Física</option>
-          <option value="3">Matemática</option>
-          <option value="4">Portugês</option>
-          <option value="5">Química</option>
+          {% for disciplina in disciplinas %}
+          <option value="{{ disciplina.id_disciplina }}">
+            {{ disciplina.nome }}
+          </option>
+          {% endfor %}
         </select>
 
         <label for="select-nota-bimestre">Bimestre:</label>
         <select name="Select do Bimestre" id="select-nota-bimestre">
-          <option value="1">1º bimestre</option>
-          <option value="2">2º bimestre</option>
-          <option value="3">3º bimestre</option>
-          <option value="4">4º bimestre</option>
+          {% for bimestre in bimestres %}
+          <option value="{{ bimestre.id_bimestre }}">
+            {{ bimestre.nome }}
+          </option>
+          {% endfor %}
         </select>
 
         <label for="input-nota-valor">Nota:</label>

@@ -1,4 +1,4 @@
-const selectModoEdicao = document.querySelector("#select-ediciao");
+const selectModoEdicao = document.querySelector("#select-edicao");
 const selectorsSectionsModosEdicao = [
   "#section-disciplina",
   "#section-sala",

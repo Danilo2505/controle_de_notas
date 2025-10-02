@@ -17,7 +17,7 @@
     - Ana Clara e Cícero Victor
 
 02/10
-- Conexão da tela index.html com o banco de dados, CSS e Python
+- Conexão das telas index.html e adicionar.html com o banco de dados, CSS e Python
     - Danilo
 - Telas excluir.html e atualizar.html básicas
     -  Ana Clara e Cícero Victor
