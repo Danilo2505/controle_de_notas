@@ -6,6 +6,16 @@ app = Flask(__name__)
 
 DATABASE = "controle_de_notas.db"
 
+# Lista de tabelas permitidas para inserção.
+# A chave é o nome da tabela e o valor são as colunas obrigatórias.
+TABELAS_PERMITIDAS = {
+    "alunos": ["nome", "id_sala"],
+    "salas": ["nome"],
+    "disciplinas": ["nome"],
+    "bimestre": ["nome"],
+    "notas": ["id_aluno", "id_disciplina", "valor", "id_bimestre"],
+}
+
 """
 STATIC_FILE_DIRECTORY = "static"
 
@@ -163,12 +173,6 @@ def populate_db():
     print("Banco de dados populado com sucesso!")
 
 
-# Executa init/populate no contexto da aplicação
-with app.app_context():
-    init_db()
-    populate_db()
-
-
 # ----- Rotas -----
 # --- Páginas ---
 # Ler/Listar
@@ -215,8 +219,6 @@ def atualizar_html():
 
 # --- API ---
 @app.route("/api/notas")
-# --- API ---
-@app.route("/api/notas")
 def obter_notas():
     db = get_db()
     id_aluno = request.args.get("id_aluno")  # parâmetro opcional
@@ -253,5 +255,89 @@ def obter_notas():
     return jsonify([dict(n) for n in notas])
 
 
+@app.route("/api/adicionar", methods=["POST"])
+def adicionar_item():
+    try:
+        data = request.get_json()
+        if not data:
+            return (
+                jsonify({"sucesso": False, "mensagem": "Requisição JSON inválida."}),
+                400,
+            )
+
+        nome_tabela = data.get("tabela")
+        valores = data.get("valores")
+
+        # Validação do nome da tabela
+        if not nome_tabela or nome_tabela not in TABELAS_PERMITIDAS:
+            return (
+                jsonify(
+                    {
+                        "sucesso": False,
+                        "mensagem": f"Inserção não permitida na tabela: {nome_tabela}.",
+                    }
+                ),
+                403,
+            )
+
+        # Validação dos dados
+        if not valores or not isinstance(valores, dict):
+            return (
+                jsonify(
+                    {
+                        "sucesso": False,
+                        "mensagem": "Dados de valores inválidos ou ausentes.",
+                    }
+                ),
+                400,
+            )
+
+        # Validação das colunas obrigatórias
+        colunas_obrigatorias = TABELAS_PERMITIDAS.get(nome_tabela)
+        if not all(col in valores for col in colunas_obrigatorias):
+            return (
+                jsonify(
+                    {
+                        "sucesso": False,
+                        "mensagem": f"Colunas obrigatórias ausentes para a tabela '{nome_tabela}'.",
+                    }
+                ),
+                400,
+            )
+
+        # Monta a query dinamicamente e com segurança
+        colunas = ", ".join(valores.keys())
+        placeholders = ", ".join(["?"] * len(valores))
+        query = f"INSERT INTO {nome_tabela} ({colunas}) VALUES ({placeholders})"
+        valores_tuple = tuple(valores.values())
+
+        # Executa a inserção
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute(query, valores_tuple)
+        db.commit()
+
+        return (
+            jsonify({"sucesso": True, "mensagem": "Item adicionado com sucesso."}),
+            201,
+        )
+    except sqlite3.Error as e:
+        # Reverte a transação em caso de erro no banco
+        get_db().rollback()
+        return (
+            jsonify({"sucesso": False, "mensagem": f"Erro no banco de dados: {e}"}),
+            500,
+        )
+    except Exception as e:
+        return (
+            jsonify({"sucesso": False, "mensagem": f"Ocorreu um erro interno: {e}"}),
+            500,
+        )
+
+
+# Executa init/populate no contexto da aplicação
 if __name__ == "__main__":
+    with app.app_context():
+        init_db()
+        populate_db()
     app.run(debug=True)

@@ -144,3 +144,17 @@ option {
 #div-top-bar a:hover {
   color: red;
 }
+
+hr {
+  margin-top: 1rem;
+}
+
+hr,
+section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+select {
+  min-height: 2.25rem;
+}

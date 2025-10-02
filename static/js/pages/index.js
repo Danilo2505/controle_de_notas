@@ -56,8 +56,6 @@ async function carregarTabelaNotasAluno(idAluno) {
     );
   }
 
-  console.log(notas_disciplinas);
-
   for (let i = 0; i < notas_disciplinas.length; i++) {
     const nota_disciplina = notas_disciplinas[i];
     let linha = document.createElement("tr");
@@ -113,5 +111,3 @@ window.onclick = function (event) {
     fecharModalNotas();
   }
 };
-
-console.log();

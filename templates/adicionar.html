@@ -20,7 +20,18 @@
       <h1>Adicionar Notas</h1>
     </div>
 
-    <section class="section-disciplina">
+    <section id="section-escolher-modo">
+      <h2>Selecione o que deseja adicionar</h2>
+
+      <select name="Select do Modo de Adição" id="select-adicao">
+        <option value="disciplina">Disciplina</option>
+        <option value="sala">Sala</option>
+        <option value="aluno">Aluno</option>
+        <option value="nota">Nota</option>
+      </select>
+    </section>
+
+    <section id="section-disciplina" class="escondido">
       <h2>Disciplina</h2>
 
       <form action="POST">
@@ -35,9 +46,7 @@
       </form>
     </section>
 
-    <hr />
-
-    <section class="section-sala">
+    <section id="section-sala" class="escondido">
       <h2>Sala</h2>
 
       <form action="POST">
@@ -48,9 +57,7 @@
       </form>
     </section>
 
-    <hr />
-
-    <section class="section-aluno">
+    <section id="section-aluno" class="escondido">
       <h2>Aluno</h2>
 
       <form action="POST">
@@ -72,9 +79,7 @@
       </form>
     </section>
 
-    <hr />
-
-    <section class="section-nota">
+    <section id="section-nota" class="escondido">
       <h2>Nota</h2>
 
       <form action="POST">
