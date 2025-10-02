@@ -11,3 +11,29 @@ const buscarSvg = (image) => {
       return true;
     });
 };
+
+// Faz uma consulta de API e retorna o resultado
+async function pegarDadosDoFlask(link) {
+  try {
+    const response = await fetch(link);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("Data from Flask:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+function calculateAverage(arr) {
+  if (arr.length === 0) {
+    return 0; // Handle empty array case to avoid division by zero
+  }
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum / arr.length;
+}
