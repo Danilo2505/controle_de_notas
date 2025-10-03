@@ -405,8 +405,8 @@ def atualizar_html():
 
 
 # --- API ---
-@app.route("/api/alunos/<int:id_sala>")
 # Alunos por sala
+@app.route("/api/alunos/<int:id_sala>")
 def obter_alunos_por_sala(id_sala):
     alunos = query_db(
         """
@@ -524,6 +524,88 @@ def adicionar_item():
 
         return (
             jsonify({"sucesso": True, "mensagem": "Item adicionado com sucesso."}),
+            201,
+        )
+    except sqlite3.Error as e:
+        # Reverte a transação em caso de erro no banco
+        get_db().rollback()
+        return (
+            jsonify({"sucesso": False, "mensagem": f"Erro no banco de dados: {e}"}),
+            500,
+        )
+    except Exception as e:
+        return (
+            jsonify({"sucesso": False, "mensagem": f"Ocorreu um erro interno: {e}"}),
+            500,
+        )
+
+
+# Atualizar dado
+@app.route("/api/atualizar", methods=["POST"])
+def atualizarar_item():
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"sucesso": False, "mensagem": "Requisição JSON inválida."}), 400
+
+        nome_tabela = data.get("tabela")
+        valores = data.get("valores")
+        condicao = data.get("condicao")                   # Ex: "id_aluno = ?"
+        condicao_valores = tuple(data.get("params", []))  # Ex: [3]
+
+        # Validação do nome da tabela
+        if not nome_tabela or nome_tabela not in TABELAS_PERMITIDAS:
+            return (
+                jsonify(
+                    {
+                        "sucesso": False,
+                        "mensagem": f"Inserção não permitida na tabela: {nome_tabela}.",
+                    }
+                ),
+                403,
+            )
+
+        # Validação dos dados
+        if not valores or not isinstance(valores, dict):
+            return (
+                jsonify(
+                    {
+                        "sucesso": False,
+                        "mensagem": "Dados de valores inválidos ou ausentes.",
+                    }
+                ),
+                400,
+            )
+
+        # Validação das colunas obrigatórias
+        colunas_obrigatorias = TABELAS_PERMITIDAS.get(nome_tabela)
+        if not all(col in valores for col in colunas_obrigatorias):
+            return (
+                jsonify(
+                    {
+                        "sucesso": False,
+                        "mensagem": f"Colunas obrigatórias ausentes para a tabela '{nome_tabela}'.",
+                    }
+                ),
+                400,
+            )
+
+        # Monta a requisição dinamicamente
+        # Monta parte SET
+        set_clause = ", ".join([f"{col} = ?" for col in valores.keys()])
+        # Query final
+        query = f"UPDATE {nome_tabela} SET {set_clause} WHERE {condicao}"
+        # Valores: primeiro os do SET, depois os da condição
+        valores_tuple = tuple(valores.values()) + condicao_valores
+
+        # Executa atualização
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute(query, valores_tuple)
+        db.commit()
+
+        return (
+            jsonify({"sucesso": True, "mensagem": "Item atualizado com sucesso."}),
             201,
         )
     except sqlite3.Error as e:

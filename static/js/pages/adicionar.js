@@ -58,7 +58,12 @@ formDisciplina.addEventListener("submit", async (e) => {
     nome: nomeDisciplina,
   };
 
-  await adicionarDadoFlask("disciplinas", novaDisciplina);
+  try {
+    const resposta = await adicionarDadoFlask("disciplinas", novaDisciplina);
+    alert(resposta.mensagem); // Exibe retorno da API
+  } catch (erro) {
+    alert("Erro ao atualizar nota: " + erro.message);
+  }
 });
 
 formSala.addEventListener("submit", async (e) => {
@@ -72,7 +77,12 @@ formSala.addEventListener("submit", async (e) => {
     nome: nomeSala,
   };
 
-  await adicionarDadoFlask("salas", novaSala);
+  try {
+    const resposta = await adicionarDadoFlask("salas", novaSala);
+    alert(resposta.mensagem); // Exibe retorno da API
+  } catch (erro) {
+    alert("Erro ao atualizar nota: " + erro.message);
+  }
 });
 
 formAluno.addEventListener("submit", async (e) => {
@@ -88,7 +98,12 @@ formAluno.addEventListener("submit", async (e) => {
     id_sala: idSala,
   };
 
-  await adicionarDadoFlask("alunos", novoAluno);
+  try {
+    const resposta = await adicionarDadoFlask("alunos", novoAluno);
+    alert(resposta.mensagem); // Exibe retorno da API
+  } catch (erro) {
+    alert("Erro ao atualizar nota: " + erro.message);
+  }
 });
 
 formNota.addEventListener("submit", async (e) => {
@@ -110,5 +125,10 @@ formNota.addEventListener("submit", async (e) => {
     valor: valorNota,
   };
 
-  await adicionarDadoFlask("notas", novaNota);
+  try {
+    const resposta = await adicionarDadoFlask("notas", novaNota);
+    alert(resposta.mensagem); // Exibe retorno da API
+  } catch (erro) {
+    alert("Erro ao atualizar nota: " + erro.message);
+  }
 });

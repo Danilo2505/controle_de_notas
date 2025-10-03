@@ -70,3 +70,33 @@ async function adicionarDadoFlask(tabela, valores) {
     throw erro; // Propaga o erro para o código que chamou a função.
   }
 }
+
+// Atualiza um item a uma tabela via API.
+async function atualizarDadoFlask(tabela, valores, condicao, params = []) {
+  // Monta o JSON esperado pelo Flask
+  const dados = { tabela, valores, condicao, params };
+
+  const opcoes = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dados),
+  };
+
+  try {
+    const resposta = await fetch("/api/atualizar", opcoes);
+
+    if (!resposta.ok) {
+      const erroData = await resposta.json();
+      throw new Error(
+        `Erro do servidor: ${resposta.status} - ${erroData.mensagem}`
+      );
+    }
+
+    return await resposta.json(); // Sucesso
+  } catch (erro) {
+    console.error("Erro na requisição:", erro);
+    throw erro;
+  }
+}
