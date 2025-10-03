@@ -5,6 +5,10 @@ const selectorsSectionsModosAdicao = [
   "#section-aluno",
   "#section-nota",
 ];
+const formDisciplina = document.querySelector("#section-disciplina > form");
+const formSala = document.querySelector("#section-sala > form");
+const formAluno = document.querySelector("#section-aluno > form");
+const formNota = document.querySelector("#section-nota > form");
 
 function definirModoAdicao(modoSelecionado) {
   // Coloca a classe escondido em cada seção de modo de adição
@@ -41,23 +45,70 @@ selectModoAdicao.addEventListener("change", function () {
   definirModoAdicao(this.value);
 });
 
-// Dados do novo aluno para enviar.
-const novoAluno = {
-  nome: "Maria Souza",
-  id_sala: 3, // Exemplo: Supondo que a sala de ID 3 exista.
-};
+// ----- Fomulários -----
+/* --- Submissões --- */
+formDisciplina.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-// Chama a função formalizada para adicionar o aluno.
-adicionarDadoFlask("alunos", novoAluno)
-  .then((data) => {
-    if (data.sucesso) {
-      console.log("Sucesso:", data.mensagem);
-      // Lógica adicional, como recarregar a página ou atualizar a interface.
-    } else {
-      console.error("Erro do servidor:", data.mensagem);
-    }
-  })
-  .catch((erro) => {
-    // Trata erros de rede ou erros específicos lançados pela função.
-    console.error("Ocorreu um erro ao adicionar o aluno:", erro.message);
-  });
+  const data = new FormData(e.target);
+
+  const nomeDisciplina = [...data.entries()][0][1];
+
+  const novaDisciplina = {
+    nome: nomeDisciplina,
+  };
+
+  await adicionarDadoFlask("disciplinas", novaDisciplina);
+});
+
+formSala.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = new FormData(e.target);
+
+  const nomeSala = [...data.entries()][0][1];
+
+  const novaSala = {
+    nome: nomeSala,
+  };
+
+  await adicionarDadoFlask("salas", novaSala);
+});
+
+formAluno.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = new FormData(e.target);
+
+  const nomeAluno = [...data.entries()][0][1];
+  const idSala = [...data.entries()][1][1];
+
+  const novoAluno = {
+    nome: nomeAluno,
+    id_sala: idSala,
+  };
+
+  await adicionarDadoFlask("alunos", novoAluno);
+});
+
+formNota.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = new FormData(e.target);
+
+  const idNota = [...data.entries()][0][1];
+  const idAluno = [...data.entries()][1][1];
+  const idDisciplina = [...data.entries()][2][1];
+  const idBimestre = [...data.entries()][3][1];
+  const valorNota = [...data.entries()][4][1];
+
+  const novaNota = {
+    id_nota: idNota,
+    id_aluno: idAluno,
+    id_disciplina: idDisciplina,
+    id_bimestre: idBimestre,
+    valor: valorNota,
+  };
+
+  await adicionarDadoFlask("notas", novaNota);
+});

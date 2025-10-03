@@ -1,5 +1,5 @@
 -- --- Tabela bimestre ---
-CREATE TABLE IF NOT EXISTS bimestre (
+CREATE TABLE IF NOT EXISTS bimestres (
     id_bimestre INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL UNIQUE
 );
@@ -20,7 +20,6 @@ CREATE TABLE IF NOT EXISTS salas (
 CREATE TABLE IF NOT EXISTS alunos (
     id_aluno INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
-    data_nascimento TEXT,
     id_sala INTEGER,
     FOREIGN KEY (id_sala) REFERENCES salas(id_sala) ON DELETE SET NULL
 );
@@ -34,6 +33,6 @@ CREATE TABLE IF NOT EXISTS notas (
     id_bimestre INTEGER NOT NULL,
     FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno) ON DELETE CASCADE,
     FOREIGN KEY (id_disciplina) REFERENCES disciplinas(id_disciplina) ON DELETE CASCADE,
-    FOREIGN KEY (id_bimestre) REFERENCES bimestre(id_bimestre) ON DELETE CASCADE
+    FOREIGN KEY (id_bimestre) REFERENCES bimestres(id_bimestre) ON DELETE CASCADE
 );
         
