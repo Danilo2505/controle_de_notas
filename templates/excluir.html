@@ -13,7 +13,6 @@
   <!-- Scripts JS -->
   <script src="/static/js/components.js" defer></script>
   <script src="/static/js/helpers.js"></script>
-  <script src="/static/js/forms.js" defer></script>
   <script src="/static/js/pages/excluir.js" defer></script>
   <body>
     <!-- Componente -->
@@ -32,92 +31,34 @@
       </select>
     </section>
 
+    <section id="section-dado-excluido">
+      <h2>Escolha o dado que deseja excluir:</h2>
+
+      <select name="Select do Dado Excluído" id="select-dado-excluido"></select>
+
+      <!-- <div id="div-informacoes-dado-excluido"></div> -->
+    </section>
+
     <section id="section-disciplina" class="escondido">
-      <h2>Disciplina</h2>
-
       <form action="POST">
-        <label for="input-nome-disciplina">Nome:</label>
-        <input
-          name="Nome da Disciplina"
-          id="input-nome-disciplina"
-          type="text"
-        />
-
         <input type="submit" value="Excluir Disciplina" />
       </form>
     </section>
 
     <section id="section-sala" class="escondido">
-      <h2>Sala</h2>
-
       <form action="POST">
-        <label for="input-nome-sala">Nome:</label>
-        <input name="Nome da Sala" id="input-nome-sala" type="text" />
-
         <input type="submit" value="Excluir Sala" />
       </form>
     </section>
 
     <section id="section-aluno" class="escondido">
-      <h2>Aluno</h2>
-
       <form action="POST">
-        <label for="input-nome-aluno">Nome Completo:</label>
-        <input
-          name="Nome Completo do Aluno"
-          id="input-nome-aluno"
-          type="text"
-        />
-
-        <label for="select-aluno-sala">Sala:</label>
-        <select name="Select da Sala" id="select-aluno-sala">
-          {% for sala in salas %}
-          <option value="{{ sala.id_sala }}">{{ sala.nome }}</option>
-          {% endfor %}
-        </select>
-
         <input type="submit" value="Excluir Aluno" />
       </form>
     </section>
 
     <section id="section-nota" class="escondido">
-      <h2>Nota</h2>
-
       <form action="POST">
-        <label for="select-sala">Sala:</label>
-        <select name="Select da Sala" id="select-sala">
-          {% for sala in salas %}
-          <option value="{{ sala.id_sala }}">{{ sala.nome }}</option>
-          {% endfor %}
-        </select>
-
-        <label for="select-aluno">Aluno:</label>
-        <select name="id_aluno" id="select-aluno">
-          <option value="">Selecione uma sala primeiro</option>
-        </select>
-
-        <label for="select-sala">Sala:</label>
-        <select name="Select da Sala" id="select-sala">
-          {% for sala in salas %}
-          <option value="{{ sala.id_sala }}">{{ sala.nome }}</option>
-          {% endfor %}
-        </select>
-
-        <label for="select-sala">Sala:</label>
-        <select name="Select da Sala" id="select-sala">
-          {% for sala in salas %}
-          <option value="{{ sala.id_sala }}">{{ sala.nome }}</option>
-          {% endfor %}
-        </select>
-
-        <label for="input-nota-valor">Nota:</label>
-        <input
-          name="Valor da Nota"
-          id="input-nota-valor"
-          type="number"
-          step="any"
-        />
-
         <input type="submit" value="Excluir Nota" />
       </form>
     </section>

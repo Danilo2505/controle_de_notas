@@ -13,7 +13,6 @@
   <!-- Scripts JS -->
   <script src="/static/js/components.js" defer></script>
   <script src="/static/js/helpers.js"></script>
-  <script src="/static/js/forms.js" defer></script>
   <script src="/static/js/pages/adicionar.js" defer></script>
   <body>
     <!-- Componente -->
@@ -37,11 +36,7 @@
 
       <form action="POST">
         <label for="input-nome-disciplina">Nome:</label>
-        <input
-          name="Nome da Disciplina"
-          id="input-nome-disciplina"
-          type="text"
-        />
+        <input name="nome" id="input-nome-disciplina" type="text" />
 
         <input type="submit" value="Adicionar Disciplina" />
       </form>
@@ -52,7 +47,7 @@
 
       <form action="POST">
         <label for="input-nome-sala">Nome:</label>
-        <input name="Nome da Sala" id="input-nome-sala" type="text" />
+        <input name="nome" id="input-nome-sala" type="text" />
 
         <input type="submit" value="Adicionar Sala" />
       </form>
@@ -63,14 +58,10 @@
 
       <form action="POST">
         <label for="input-nome-aluno">Nome Completo:</label>
-        <input
-          name="Nome Completo do Aluno"
-          id="input-nome-aluno"
-          type="text"
-        />
+        <input name="nome" id="input-nome-aluno" type="text" />
 
         <label for="select-aluno-sala">Sala:</label>
-        <select name="Select da Sala" id="select-aluno-sala">
+        <select name="id_sala" id="select-aluno-sala">
           {% for sala in salas %}
           <option value="{{ sala.id_sala }}">{{ sala.nome }}</option>
           {% endfor %}
@@ -85,7 +76,7 @@
 
       <form action="POST">
         <label for="select-sala">Sala:</label>
-        <select name="Select da Sala" id="select-sala">
+        <select name="id_sala" id="select-sala">
           {% for sala in salas %}
           <option value="{{ sala.id_sala }}">{{ sala.nome }}</option>
           {% endfor %}
@@ -115,12 +106,7 @@
         </select>
 
         <label for="input-nota-valor">Nota:</label>
-        <input
-          name="Valor da Nota"
-          id="input-nota-valor"
-          type="number"
-          step="any"
-        />
+        <input name="valor" id="input-nota-valor" type="number" step="any" />
 
         <input type="submit" value="Adicionar Nota" />
       </form>

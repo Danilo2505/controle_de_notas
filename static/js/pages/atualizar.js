@@ -6,37 +6,161 @@ const selectorsSectionsModosEdicao = [
   "#section-nota",
 ];
 
-function definirModoEdicao(modoSelecionado) {
-  // Coloca a classe escondido em cada seção de modo de edição
-  selectorsSectionsModosEdicao.forEach((modoEdicao) => {
-    document.querySelector(modoEdicao).classList.add("escondido");
-  });
+const sectionDadoEditado = document.querySelector("#section-dado-editado");
+const selectDadoEditado = document.querySelector("#select-dado-editado");
+const divInformacoesDadoExcluido = document.querySelector(
+  "#div-informacoes-dado-excluido"
+);
 
-  // Retira a classe "escondido" do modo de edição selecionado
+const formDisciplina = document.querySelector("#section-disciplina > form");
+const formSala = document.querySelector("#section-sala > form");
+const formAluno = document.querySelector("#section-aluno > form");
+const formNota = document.querySelector("#section-nota > form");
+
+// ----- Funções de interface -----
+async function carregarDadosDisponiveis(modoSelecionado) {
+  let listaDados, option;
+
+  selectDadoEditado.replaceChildren(); // Limpa opções anteriores
+
   switch (modoSelecionado) {
-    // Modo de edição de disciplinas
     case "disciplina":
-      document
-        .querySelector("#section-disciplina")
-        .classList.remove("escondido");
+      listaDados = await listarDadosFlask("disciplinas");
+      listaDados.forEach((dado) => {
+        option = new Option(dado.nome, dado.id_disciplina);
+        selectDadoEditado.add(option);
+      });
       break;
-    // Modo de edição de salas
+
     case "sala":
-      document.querySelector("#section-sala").classList.remove("escondido");
+      listaDados = await listarDadosFlask("salas");
+      listaDados.forEach((dado) => {
+        option = new Option(dado.nome, dado.id_sala);
+        selectDadoEditado.add(option);
+      });
       break;
-    // Modo de edição de alunos
+
     case "aluno":
-      document.querySelector("#section-aluno").classList.remove("escondido");
+      listaDados = await listarDadosFlask("alunos");
+      listaDados.forEach((dado) => {
+        option = new Option(dado.nome, dado.id_aluno);
+        selectDadoEditado.add(option);
+      });
       break;
-    // Modo de edição de notas
+
     case "nota":
-      document.querySelector("#section-nota").classList.remove("escondido");
+      const listaNotas = await listarNotasCompletasFlask();
+
+      selectDadoEditado.replaceChildren();
+
+      for (const nota of listaNotas) {
+        const textoOption = `${nota.nome_sala} | ${nota.nome_aluno} | ${nota.nome_disciplina} | ${nota.nome_bimestre} | Nota: ${nota.valor}`;
+        const option = new Option(textoOption, nota.id_nota);
+        selectDadoEditado.add(option);
+      }
+
       break;
   }
 }
 
-definirModoEdicao(selectModoEdicao.value);
+function definirModoEdicao(modoSelecionado) {
+  selectorsSectionsModosEdicao.forEach((modoEdicao) => {
+    document.querySelector(modoEdicao).classList.add("escondido");
+  });
 
-selectModoEdicao.addEventListener("change", function () {
+  document
+    .querySelector(`#section-${modoSelecionado}`)
+    .classList.remove("escondido");
+}
+
+selectModoEdicao.addEventListener("change", async function () {
   definirModoEdicao(this.value);
+  await carregarDadosDisponiveis(this.value);
 });
+
+// Atualiza a interface
+async function atualizarInterface() {
+  const modoAtual = selectModoEdicao.value;
+  definirModoEdicao(modoAtual);
+  await carregarDadosDisponiveis(modoAtual);
+}
+
+// ----- Fomulários -----
+// --- Submissões ---
+formDisciplina.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const idDisciplina = selectDadoEditado.value;
+  const nomeDisciplina = data.get("nome");
+
+  const novaDisciplina = { nome: nomeDisciplina };
+
+  try {
+    await atualizarDadoFlask(
+      "disciplinas",
+      novaDisciplina,
+      "id_disciplina = ?",
+      [idDisciplina]
+    );
+    await atualizarInterface();
+  } catch (erro) {
+    console.error("Erro ao atualizar disciplina:", erro);
+  }
+});
+
+formSala.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const idSala = selectDadoEditado.value;
+  const nomeSala = data.get("nome");
+
+  const novaSala = { nome: nomeSala };
+
+  try {
+    await atualizarDadoFlask("salas", novaSala, "id_sala = ?", [idSala]);
+    await atualizarInterface();
+  } catch (erro) {
+    console.error("Erro ao atualizar sala:", erro);
+  }
+});
+
+formAluno.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const idAluno = selectDadoEditado.value;
+  const nomeAluno = data.get("nome");
+  const idSala = data.get("id_sala");
+
+  const novoAluno = { nome: nomeAluno, id_sala: idSala };
+
+  try {
+    await atualizarDadoFlask("alunos", novoAluno, "id_aluno = ?", [idAluno]);
+    await atualizarInterface();
+  } catch (erro) {
+    console.error("Erro ao atualizar aluno:", erro);
+  }
+});
+
+formNota.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+
+  const idNota = selectDadoEditado.value;
+  const valorNota = data.get("valor");
+
+  const novaNota = {
+    valor: valorNota,
+  };
+
+  try {
+    await atualizarDadoFlask("notas", novaNota, "id_nota = ?", [
+      Number(idNota),
+    ]);
+    await atualizarInterface();
+  } catch (erro) {
+    console.error("Erro ao atualizar nota:", erro);
+  }
+});
+
+// Primeira execução
+atualizarInterface();

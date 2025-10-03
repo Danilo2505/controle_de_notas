@@ -24,14 +24,17 @@ function definirModoAdicao(modoSelecionado) {
         .querySelector("#section-disciplina")
         .classList.remove("escondido");
       break;
+
     // Modo de adição de salas
     case "sala":
       document.querySelector("#section-sala").classList.remove("escondido");
       break;
+
     // Modo de adição de alunos
     case "aluno":
       document.querySelector("#section-aluno").classList.remove("escondido");
       break;
+
     // Modo de adição de notas
     case "nota":
       document.querySelector("#section-nota").classList.remove("escondido");
@@ -45,7 +48,43 @@ selectModoAdicao.addEventListener("change", function () {
   definirModoAdicao(this.value);
 });
 
+async function carregarAlunos() {
+  const salaId = this.value;
+  const alunoSelect = document.getElementById("select-aluno");
+
+  // Limpa opções anteriores
+  alunoSelect.innerHTML = '<option value="">Carregando...</option>';
+
+  if (salaId) {
+    const response = await fetch(`/api/alunos/${salaId}`);
+    const alunos = await response.json();
+
+    // Preenche novamente
+    alunoSelect.innerHTML = "";
+    alunos.forEach((aluno) => {
+      const opt = document.createElement("option");
+      opt.value = aluno.id_aluno;
+      opt.textContent = aluno.nome;
+      alunoSelect.appendChild(opt);
+    });
+
+    // Se não houver alunos
+    if (alunos.length === 0) {
+      alunoSelect.innerHTML =
+        '<option value="">Nenhum aluno nesta sala</option>';
+    }
+  } else {
+    alunoSelect.innerHTML =
+      '<option value="">Selecione uma sala primeiro</option>';
+  }
+}
+
 // ----- Fomulários -----
+// Verifica se uma sala for escolhida
+document
+  .querySelector("#select-sala")
+  .addEventListener("change", carregarAlunos);
+
 /* --- Submissões --- */
 formDisciplina.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -58,7 +97,12 @@ formDisciplina.addEventListener("submit", async (e) => {
     nome: nomeDisciplina,
   };
 
-  await adicionarDadoFlask("disciplinas", novaDisciplina);
+  try {
+    const resposta = await adicionarDadoFlask("disciplinas", novaDisciplina);
+    alert(resposta.mensagem); // Exibe retorno da API
+  } catch (erro) {
+    alert("Erro ao atualizar nota: " + erro.message);
+  }
 });
 
 formSala.addEventListener("submit", async (e) => {
@@ -72,7 +116,12 @@ formSala.addEventListener("submit", async (e) => {
     nome: nomeSala,
   };
 
-  await adicionarDadoFlask("salas", novaSala);
+  try {
+    const resposta = await adicionarDadoFlask("salas", novaSala);
+    alert(resposta.mensagem); // Exibe retorno da API
+  } catch (erro) {
+    alert("Erro ao atualizar nota: " + erro.message);
+  }
 });
 
 formAluno.addEventListener("submit", async (e) => {
@@ -88,7 +137,12 @@ formAluno.addEventListener("submit", async (e) => {
     id_sala: idSala,
   };
 
-  await adicionarDadoFlask("alunos", novoAluno);
+  try {
+    const resposta = await adicionarDadoFlask("alunos", novoAluno);
+    alert(resposta.mensagem); // Exibe retorno da API
+  } catch (erro) {
+    alert("Erro ao atualizar nota: " + erro.message);
+  }
 });
 
 formNota.addEventListener("submit", async (e) => {
@@ -110,5 +164,10 @@ formNota.addEventListener("submit", async (e) => {
     valor: valorNota,
   };
 
-  await adicionarDadoFlask("notas", novaNota);
+  try {
+    const resposta = await adicionarDadoFlask("notas", novaNota);
+    alert(resposta.mensagem); // Exibe retorno da API
+  } catch (erro) {
+    alert("Erro ao atualizar nota: " + erro.message);
+  }
 });

@@ -405,8 +405,8 @@ def atualizar_html():
 
 
 # --- API ---
-@app.route("/api/alunos/<int:id_sala>")
 # Alunos por sala
+@app.route("/api/alunos/<int:id_sala>")
 def obter_alunos_por_sala(id_sala):
     alunos = query_db(
         """
@@ -457,6 +457,33 @@ def obter_notas():
     # Executa query
     notas = query_db(query, params)
     return jsonify([dict(n) for n in notas])
+
+
+@app.route("/api/notas_completas", methods=["GET"])
+def listar_notas_completas():
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute(
+        """
+        SELECT 
+            notas.id_nota,
+            notas.valor,
+            alunos.nome AS nome_aluno,
+            salas.nome AS nome_sala,
+            disciplinas.nome AS nome_disciplina,
+            bimestres.nome AS nome_bimestre
+        FROM notas
+        JOIN alunos ON notas.id_aluno = alunos.id_aluno
+        JOIN salas ON alunos.id_sala = salas.id_sala
+        JOIN disciplinas ON notas.id_disciplina = disciplinas.id_disciplina
+        JOIN bimestres ON notas.id_bimestre = bimestres.id_bimestre
+        ORDER BY salas.nome, alunos.nome, disciplinas.nome, bimestres.nome;
+    """
+    )
+    dados = cursor.fetchall()
+    colunas = [desc[0] for desc in cursor.description]
+    resultado = [dict(zip(colunas, linha)) for linha in dados]
+    return jsonify(resultado)
 
 
 # Adicionar dado
@@ -538,6 +565,127 @@ def adicionar_item():
             jsonify({"sucesso": False, "mensagem": f"Ocorreu um erro interno: {e}"}),
             500,
         )
+
+
+# Listar dados
+@app.route("/api/listar", methods=["POST"])
+def listar_itens():
+    try:
+        data = request.get_json()
+        if not data:
+            return (
+                jsonify({"sucesso": False, "mensagem": "Requisição JSON inválida."}),
+                400,
+            )
+
+        nome_tabela = data.get("tabela")
+        filtros = data.get("filtros", {})  # opcional
+
+        # Validação do nome da tabela
+        if not nome_tabela or nome_tabela not in TABELAS_PERMITIDAS:
+            return (
+                jsonify(
+                    {
+                        "sucesso": False,
+                        "mensagem": f"Acesso não permitido à tabela: {nome_tabela}.",
+                    }
+                ),
+                403,
+            )
+
+        # Monta a query dinamicamente (com filtros opcionais)
+        query = f"SELECT * FROM {nome_tabela}"
+        valores = []
+
+        if filtros and isinstance(filtros, dict):
+            condicoes = [f"{col} = ?" for col in filtros.keys()]
+            query += " WHERE " + " AND ".join(condicoes)
+            valores = list(filtros.values())
+
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute(query, valores)
+        resultados = cursor.fetchall()
+
+        # Converte para dicionários
+        colunas = [desc[0] for desc in cursor.description]
+        itens = [dict(zip(colunas, linha)) for linha in resultados]
+
+        return jsonify({"sucesso": True, "dados": itens}), 200
+
+    except sqlite3.Error as e:
+        return (
+            jsonify({"sucesso": False, "mensagem": f"Erro no banco de dados: {e}"}),
+            500,
+        )
+
+    except Exception as e:
+        return (
+            jsonify({"sucesso": False, "mensagem": f"Ocorreu um erro interno: {e}"}),
+            500,
+        )
+
+
+# Atualizar dado
+@app.route("/api/atualizar", methods=["POST"])
+def atualizarar_item():
+    try:
+        data = request.get_json()
+        if not data:
+            return (
+                jsonify({"sucesso": False, "mensagem": "Requisição JSON inválida."}),
+                400,
+            )
+
+        nome_tabela = data.get("tabela")
+        valores = data.get("valores")
+        condicao = data.get("condicao")  # Ex: "id_nota = ?"
+        condicao_valores = tuple(data.get("params", []))  # Ex: [3]
+
+        # Validação do nome da tabela
+        if not nome_tabela or nome_tabela not in TABELAS_PERMITIDAS:
+            return (
+                jsonify(
+                    {
+                        "sucesso": False,
+                        "mensagem": f"Tabela não permitida: {nome_tabela}.",
+                    }
+                ),
+                403,
+            )
+
+        # Validação dos dados
+        if not valores or not isinstance(valores, dict):
+            return (
+                jsonify(
+                    {"sucesso": False, "mensagem": "Valores inválidos ou ausentes."}
+                ),
+                400,
+            )
+
+        # --- Removido: validação de colunas obrigatórias ---
+        # Não é necessário enviar todas para atualização parcial
+
+        # Monta a cláusula SET dinamicamente
+        set_clause = ", ".join([f"{col} = ?" for col in valores.keys()])
+        query = f"UPDATE {nome_tabela} SET {set_clause} WHERE {condicao}"
+        valores_tuple = tuple(valores.values()) + condicao_valores
+
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute(query, valores_tuple)
+        db.commit()
+
+        return (
+            jsonify({"sucesso": True, "mensagem": "Item atualizado com sucesso."}),
+            201,
+        )
+
+    except sqlite3.Error as e:
+        get_db().rollback()
+        return jsonify({"sucesso": False, "mensagem": f"Erro no banco: {e}"}), 500
+    except Exception as e:
+        return jsonify({"sucesso": False, "mensagem": f"Erro interno: {e}"}), 500
 
 
 # Executa init/populate no contexto da aplicação
