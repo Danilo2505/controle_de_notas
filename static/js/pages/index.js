@@ -13,7 +13,6 @@ for (let i = 0; i < linhasTableListagemAlunos.children.length; i++) {
   const linhaDoAluno = linhasTableListagemAlunos.children[i];
   // ID do aluno
   const idAluno = linhaDoAluno.firstElementChild.textContent;
-  console.log(idAluno);
   // <button> para mostra as notas do aluno
   const botao = linhaDoAluno.lastElementChild.querySelector("button");
   // Cria um EventListener para o click no botão das notas de cada aluno
@@ -39,7 +38,7 @@ async function carregarTabelaNotasAluno(idAluno) {
   // Cria um array bidimensional composto por
   // arrays com o nome da disciplina, 4 notas e média
   let notas_disciplinas = disciplinas.map((n) =>
-    Array(n, 1.0, 2.0, 3.0, 4.0, 0)
+    Array(n, "-", "-", "-", "-", 0)
   );
 
   for (let i = 0; i < notas.length; i++) {
@@ -50,9 +49,9 @@ async function carregarTabelaNotasAluno(idAluno) {
     notas_disciplinas[indiceDisciplina][bimestre] = nota.valor;
     // Calcula a média, com 1 casa de precisão
     notas_disciplinas[indiceDisciplina][5] = Number(
-      calculateAverage(notas_disciplinas[indiceDisciplina].slice(1, 4)).toFixed(
-        1
-      )
+      calculateAverage(
+        apenasNumerosNoArray(notas_disciplinas[indiceDisciplina].slice(1, 4))
+      ).toFixed(1)
     );
   }
 

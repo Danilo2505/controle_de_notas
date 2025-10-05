@@ -91,7 +91,7 @@ formDisciplina.addEventListener("submit", async (e) => {
 
   const data = new FormData(e.target);
 
-  const nomeDisciplina = [...data.entries()][0][1];
+  const nomeDisciplina = data.get("nome");
 
   const novaDisciplina = {
     nome: nomeDisciplina,
@@ -110,7 +110,7 @@ formSala.addEventListener("submit", async (e) => {
 
   const data = new FormData(e.target);
 
-  const nomeSala = [...data.entries()][0][1];
+  const nomeSala = data.get("nome");
 
   const novaSala = {
     nome: nomeSala,
@@ -129,12 +129,11 @@ formAluno.addEventListener("submit", async (e) => {
 
   const data = new FormData(e.target);
 
-  const nomeAluno = [...data.entries()][0][1];
-  const idSala = [...data.entries()][1][1];
-
+  const nomeAluno = data.get("nome");
+  const idSala = data.get("id_sala") || null; // converte vazio em null
   const novoAluno = {
     nome: nomeAluno,
-    id_sala: idSala,
+    id_sala: idSala ? parseInt(idSala) : null, // garante número ou null
   };
 
   try {
@@ -150,14 +149,12 @@ formNota.addEventListener("submit", async (e) => {
 
   const data = new FormData(e.target);
 
-  const idNota = [...data.entries()][0][1];
-  const idAluno = [...data.entries()][1][1];
-  const idDisciplina = [...data.entries()][2][1];
-  const idBimestre = [...data.entries()][3][1];
-  const valorNota = [...data.entries()][4][1];
+  const idAluno = data.get("id_aluno");
+  const idDisciplina = data.get("id_disciplina");
+  const idBimestre = data.get("id_bimestre");
+  const valorNota = data.get("valor");
 
   const novaNota = {
-    id_nota: idNota,
     id_aluno: idAluno,
     id_disciplina: idDisciplina,
     id_bimestre: idBimestre,

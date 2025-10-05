@@ -93,12 +93,12 @@ formDisciplina.addEventListener("submit", async (e) => {
   const idDisciplina = selectDadoEditado.value;
   const nomeDisciplina = data.get("nome");
 
-  const novaDisciplina = { nome: nomeDisciplina };
+  const disciplinaAtualizada = { nome: nomeDisciplina };
 
   try {
     await atualizarDadoFlask(
       "disciplinas",
-      novaDisciplina,
+      disciplinaAtualizada,
       "id_disciplina = ?",
       [idDisciplina]
     );
@@ -114,10 +114,10 @@ formSala.addEventListener("submit", async (e) => {
   const idSala = selectDadoEditado.value;
   const nomeSala = data.get("nome");
 
-  const novaSala = { nome: nomeSala };
+  const salaAtualizada = { nome: nomeSala };
 
   try {
-    await atualizarDadoFlask("salas", novaSala, "id_sala = ?", [idSala]);
+    await atualizarDadoFlask("salas", salaAtualizada, "id_sala = ?", [idSala]);
     await atualizarInterface();
   } catch (erro) {
     console.error("Erro ao atualizar sala:", erro);
@@ -131,10 +131,12 @@ formAluno.addEventListener("submit", async (e) => {
   const nomeAluno = data.get("nome");
   const idSala = data.get("id_sala");
 
-  const novoAluno = { nome: nomeAluno, id_sala: idSala };
+  const alunoAtualizado = { nome: nomeAluno, id_sala: idSala };
 
   try {
-    await atualizarDadoFlask("alunos", novoAluno, "id_aluno = ?", [idAluno]);
+    await atualizarDadoFlask("alunos", alunoAtualizado, "id_aluno = ?", [
+      idAluno,
+    ]);
     await atualizarInterface();
   } catch (erro) {
     console.error("Erro ao atualizar aluno:", erro);
@@ -148,14 +150,12 @@ formNota.addEventListener("submit", async (e) => {
   const idNota = selectDadoEditado.value;
   const valorNota = data.get("valor");
 
-  const novaNota = {
+  const notaAtualizada = {
     valor: valorNota,
   };
 
   try {
-    await atualizarDadoFlask("notas", novaNota, "id_nota = ?", [
-      Number(idNota),
-    ]);
+    await atualizarDadoFlask("notas", notaAtualizada, "id_nota = ?", [idNota]);
     await atualizarInterface();
   } catch (erro) {
     console.error("Erro ao atualizar nota:", erro);

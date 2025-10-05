@@ -688,6 +688,58 @@ def atualizarar_item():
         return jsonify({"sucesso": False, "mensagem": f"Erro interno: {e}"}), 500
 
 
+# Excluir dado
+@app.route("/api/excluir", methods=["POST"])
+def excluir_item():
+    try:
+        data = request.get_json()
+        if not data:
+            return (
+                jsonify({"sucesso": False, "mensagem": "Requisição JSON inválida."}),
+                400,
+            )
+
+        nome_tabela = data.get("tabela")
+        condicao = data.get("condicao")  # Ex: "id_nota = ?"
+        condicao_valores = tuple(data.get("params", []))  # Ex: [3]
+
+        # Validação do nome da tabela
+        if not nome_tabela or nome_tabela not in TABELAS_PERMITIDAS:
+            return (
+                jsonify(
+                    {
+                        "sucesso": False,
+                        "mensagem": f"Tabela não permitida: {nome_tabela}.",
+                    }
+                ),
+                403,
+            )
+
+        # Validação da condição
+        if not condicao or not condicao_valores:
+            return (
+                jsonify(
+                    {"sucesso": False, "mensagem": "Condição inválida para exclusão."}
+                ),
+                400,
+            )
+
+        # Executa exclusão
+        db = get_db()
+        cursor = db.cursor()
+        query = f"DELETE FROM {nome_tabela} WHERE {condicao}"
+        cursor.execute(query, condicao_valores)
+        db.commit()
+
+        return jsonify({"sucesso": True, "mensagem": "Item excluído com sucesso."}), 200
+
+    except sqlite3.Error as e:
+        db.rollback()
+        return jsonify({"sucesso": False, "mensagem": f"Erro no banco: {e}"}), 500
+    except Exception as e:
+        return jsonify({"sucesso": False, "mensagem": f"Erro interno: {e}"}), 500
+
+
 # Executa init/populate no contexto da aplicação
 if __name__ == "__main__":
     with app.app_context():

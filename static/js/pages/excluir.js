@@ -92,19 +92,10 @@ async function atualizarInterface() {
 // /*
 formDisciplina.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const data = new FormData(e.target);
   const idDisciplina = selectDadoExcluido.value;
-  const nomeDisciplina = data.get("nome");
-
-  const novaDisciplina = { nome: nomeDisciplina };
 
   try {
-    await atualizarDadoFlask(
-      "disciplinas",
-      novaDisciplina,
-      "id_disciplina = ?",
-      [idDisciplina]
-    );
+    await excluirDadoFlask("disciplinas", "id_disciplina = ?", [idDisciplina]);
     await atualizarInterface();
   } catch (erro) {
     console.error("Erro ao atualizar disciplina:", erro);
@@ -113,14 +104,10 @@ formDisciplina.addEventListener("submit", async (e) => {
 
 formSala.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const data = new FormData(e.target);
   const idSala = selectDadoExcluido.value;
-  const nomeSala = data.get("nome");
-
-  const novaSala = { nome: nomeSala };
 
   try {
-    await atualizarDadoFlask("salas", novaSala, "id_sala = ?", [idSala]);
+    await excluirDadoFlask("salas", "id_sala = ?", [idSala]);
     await atualizarInterface();
   } catch (erro) {
     console.error("Erro ao atualizar sala:", erro);
@@ -129,15 +116,10 @@ formSala.addEventListener("submit", async (e) => {
 
 formAluno.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const data = new FormData(e.target);
   const idAluno = selectDadoExcluido.value;
-  const nomeAluno = data.get("nome");
-  const idSala = data.get("id_sala");
-
-  const novoAluno = { nome: nomeAluno, id_sala: idSala };
 
   try {
-    await atualizarDadoFlask("alunos", novoAluno, "id_aluno = ?", [idAluno]);
+    await excluirDadoFlask("alunos", "id_aluno = ?", [idAluno]);
     await atualizarInterface();
   } catch (erro) {
     console.error("Erro ao atualizar aluno:", erro);
@@ -149,16 +131,9 @@ formNota.addEventListener("submit", async (e) => {
   const data = new FormData(e.target);
 
   const idNota = selectDadoExcluido.value;
-  const valorNota = data.get("valor");
-
-  const novaNota = {
-    valor: valorNota,
-  };
 
   try {
-    await atualizarDadoFlask("notas", novaNota, "id_nota = ?", [
-      Number(idNota),
-    ]);
+    await excluirDadoFlask("notas", "id_nota = ?", [idNota]);
     await atualizarInterface();
   } catch (erro) {
     console.error("Erro ao atualizar nota:", erro);

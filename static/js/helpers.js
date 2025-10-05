@@ -24,6 +24,12 @@ function calculateAverage(arr) {
   return sum / arr.length;
 }
 
+function apenasNumerosNoArray(arr) {
+  return arr.filter((element) => {
+    return typeof element === "number" && !isNaN(element);
+  });
+}
+
 // ----- Consultas de API -----
 // Faz uma consulta de API e retorna o resultado
 async function pegarDadosDoFlask(link) {
@@ -136,6 +142,32 @@ async function atualizarDadoFlask(tabela, valores, condicao, params = []) {
 
   try {
     const resposta = await fetch("/api/atualizar", opcoes);
+
+    if (!resposta.ok) {
+      const erroData = await resposta.json();
+      throw new Error(
+        `Erro do servidor: ${resposta.status} - ${erroData.mensagem}`
+      );
+    }
+
+    return await resposta.json(); // Sucesso
+  } catch (erro) {
+    console.error("Erro na requisição:", erro);
+    throw erro;
+  }
+}
+// Exclui um item de uma tabela via API.
+async function excluirDadoFlask(tabela, condicao, params = []) {
+  const dados = { tabela, condicao, params };
+
+  const opcoes = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados),
+  };
+
+  try {
+    const resposta = await fetch("/api/excluir", opcoes);
 
     if (!resposta.ok) {
       const erroData = await resposta.json();

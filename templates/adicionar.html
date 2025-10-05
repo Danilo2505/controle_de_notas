@@ -88,7 +88,7 @@
         </select>
 
         <label for="select-disciplina">Disciplina:</label>
-        <select name="Select da Disciplina" id="select-disciplina">
+        <select name="id_disciplina" id="select-disciplina">
           {% for disciplina in disciplinas %}
           <option value="{{ disciplina.id_disciplina }}">
             {{ disciplina.nome }}
@@ -97,7 +97,7 @@
         </select>
 
         <label for="select-nota-bimestre">Bimestre:</label>
-        <select name="Select do Bimestre" id="select-nota-bimestre">
+        <select name="id_bimestre" id="select-nota-bimestre">
           {% for bimestre in bimestres %}
           <option value="{{ bimestre.id_bimestre }}">
             {{ bimestre.nome }}
