@@ -7,60 +7,71 @@
     <!-- Estilos CSS -->
     <link rel="stylesheet" href="/static/css/reset.css" />
     <link rel="stylesheet" href="/static/css/fonts.css" />
+    <link rel="stylesheet" href="/static/css/colors.css" />
     <link rel="stylesheet" href="/static/css/global.css" />
     <link rel="stylesheet" href="/static/css/pages/excluir.css" />
   </head>
   <!-- Scripts JS -->
   <script src="/static/js/components.js" defer></script>
   <script src="/static/js/helpers.js"></script>
+  <script src="/static/js/themeManager.js" defer></script>
   <script src="/static/js/pages/excluir.js" defer></script>
   <body>
-    <!-- Componente -->
-    <div id="div-top-bar">
-      <h1>Excluir Dados</h1>
-    </div>
+    <header>
+      <!-- Componente -->
+      <div id="div-top-bar">
+        <h1>Excluir Dados</h1>
+      </div>
+    </header>
 
-    <section id="section-escolher-modo-exclusao">
-      <h2>Selecione o que deseja excluir</h2>
+    <main>
+      <section id="section-escolher-modo-exclusao">
+        <h2>Selecione o que deseja excluir</h2>
 
-      <select name="Select do Modo de Exclusão" id="select-exclusao">
-        <option value="disciplina">Disciplina</option>
-        <option value="sala">Sala</option>
-        <option value="aluno">Aluno</option>
-        <option value="nota">Nota</option>
-      </select>
-    </section>
+        <select name="Select do Modo de Exclusão" id="select-exclusao">
+          <option value="disciplina">Disciplina</option>
+          <option value="sala">Sala</option>
+          <option value="aluno">Aluno</option>
+          <option value="nota">Nota</option>
+        </select>
+      </section>
 
-    <section id="section-dado-excluido">
-      <h2>Escolha o dado que deseja excluir</h2>
+      <section id="section-dado-excluido">
+        <h2>Escolha o dado que deseja excluir</h2>
 
-      <select name="Select do Dado Excluído" id="select-dado-excluido"></select>
+        <select
+          name="Select do Dado Excluído"
+          id="select-dado-excluido"
+        ></select>
 
-      <!-- <div id="div-informacoes-dado-excluido"></div> -->
-    </section>
+        <!-- <div id="div-informacoes-dado-excluido"></div> -->
+      </section>
 
-    <section id="section-disciplina" class="escondido">
-      <form action="POST">
-        <input type="submit" value="Excluir Disciplina" />
-      </form>
-    </section>
+      <section id="section-disciplina" class="escondido">
+        <form action="POST">
+          <input type="submit" value="Excluir Disciplina" />
+        </form>
+      </section>
 
-    <section id="section-sala" class="escondido">
-      <form action="POST">
-        <input type="submit" value="Excluir Sala" />
-      </form>
-    </section>
+      <section id="section-sala" class="escondido">
+        <form action="POST">
+          <input type="submit" value="Excluir Sala" />
+        </form>
+      </section>
 
-    <section id="section-aluno" class="escondido">
-      <form action="POST">
-        <input type="submit" value="Excluir Aluno" />
-      </form>
-    </section>
+      <section id="section-aluno" class="escondido">
+        <form action="POST">
+          <input type="submit" value="Excluir Aluno" />
+        </form>
+      </section>
 
-    <section id="section-nota" class="escondido">
-      <form action="POST">
-        <input type="submit" value="Excluir Nota" />
-      </form>
-    </section>
+      <section id="section-nota" class="escondido">
+        <form action="POST">
+          <input type="submit" value="Excluir Nota" />
+        </form>
+      </section>
+
+      <button id="button-tema"></button>
+    </main>
   </body>
 </html>

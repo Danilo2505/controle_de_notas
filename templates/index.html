@@ -7,85 +7,110 @@
     <!-- Estilos CSS -->
     <link rel="stylesheet" href="/static/css/reset.css" />
     <link rel="stylesheet" href="/static/css/fonts.css" />
+    <link rel="stylesheet" href="/static/css/colors.css" />
     <link rel="stylesheet" href="/static/css/global.css" />
     <link rel="stylesheet" href="/static/css/pages/index.css" />
   </head>
   <!-- Scripts JS -->
   <script src="/static/js/components.js" defer></script>
   <script src="/static/js/helpers.js"></script>
+  <script src="/static/js/themeManager.js" defer></script>
   <script src="/static/js/pages/index.js" defer></script>
   <body>
-    <!-- Componente -->
-    <div id="div-top-bar">
-      <h1>Controle de Notas</h1>
-    </div>
+    <header>
+      <!-- Componente -->
+      <div id="div-top-bar">
+        <h1>Controle de Notas</h1>
+      </div>
+    </header>
 
-    <h2>Alunos</h2>
-    <table id="table-listagem-alunos">
-      <colgroup>
-        <col span="1" style="visibility: collapse" />
-        <!-- Oculta a primeira colua, a dos IDs -->
-        <col span="1" />
-        <col span="1" />
-        <col span="1" />
-      </colgroup>
+    <main>
+      <h2>Alunos</h2>
 
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Sala</th>
-          <th>Notas</th>
-        </tr>
-      </thead>
+      <div class="div-container-tabelas">
+        <table id="table-listagem-alunos">
+          <colgroup>
+            <!-- Oculta a primeira coluna, a dos IDs -->
+            <col span="1" style="visibility: collapse" />
+            <col span="1" />
+            <col span="1" />
+            <col span="1" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Sala</th>
+              <th>Notas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for aluno in alunos %}
+            <tr>
+              <td>{{ aluno.id_aluno }}</td>
+              <td>{{ aluno.nome }}</td>
+              <td>{{ aluno.nome_sala }}</td>
+              <td>
+                <button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"
+                    />
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
-      <tbody>
-        {% for aluno in alunos %}
-        <tr>
-          <td>{{ aluno.id_aluno }}</td>
-          <td>{{ aluno.nome }}</td>
-          <td>{{ aluno.nome_sala }}</td>
-          <td>
-            <button>
+      <div id="modal-notas-alunos" class="modal">
+        <div class="modal-conteudo">
+          <div class="div-top-modal">
+            <h3>Notas de <span></span></h3>
+            <button class="button-fechar">
               <img
-                src="/static/assets/icons/eye-fill.svg"
+                src="/static/assets/icons/x-circle.svg"
                 alt=""
                 onload="buscarSvg(this)"
               />
             </button>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+          </div>
 
-    <div id="modal-notas-alunos" class="modal">
-      <div class="modal-conteudo">
-        <div class="div-top-modal">
-          <h3>Notas de <span></span></h3>
-          <button class="button-fechar">
-            <img
-              src="/static/assets/icons/x-circle.svg"
-              alt=""
-              onload="buscarSvg(this)"
-            />
-          </button>
+          <div class="div-container-tabelas">
+            <table id="table-notas-aluno">
+              <colgroup>
+                <col span="1" />
+                <col span="1" />
+                <col span="1" />
+                <col span="1" />
+                <col span="1" />
+                <col span="1" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Disciplina</th>
+                  <th>1º</th>
+                  <th>2º</th>
+                  <th>3º</th>
+                  <th>4º</th>
+                  <th>Média</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
-
-        <table id="table-notas-aluno">
-          <thead>
-            <tr>
-              <th>Disciplina</th>
-              <th>1º</th>
-              <th>2º</th>
-              <th>3º</th>
-              <th>4º</th>
-              <th>Média</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
       </div>
-    </div>
+
+      <button id="button-tema"></button>
+    </main>
   </body>
 </html>

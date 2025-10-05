@@ -23,7 +23,9 @@
     -  Ana Clara e Cícero Victor
 
 03/10
-- 
-    - 
-- 
-    -  
+- Conexão das telas atualizar.html e excluir.html com o banco de dados, CSS e Python
+    - Danilo
+
+05/10
+- Melhora no visual (CSS)
+    - Danilo

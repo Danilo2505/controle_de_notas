@@ -1,16 +1,33 @@
+/* ----- Reset ----- */
 * {
   margin: 0;
   box-sizing: border-box;
+  scrollbar-width: smooth;
 }
 
 body {
-  background-color: black;
-  color: white;
-  padding: 0.5rem 1.5rem;
+  background-color: var(--bg-color-1);
+  color: var(--accent-color-1);
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* ----- Links e Botões ----- */
 a {
   text-decoration: none;
+  color: var(--accent-color-1);
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover,
+#div-top-bar a:hover,
+.div-top-modal .button-fechar:hover,
+.div-top-modal .button-fechar:focus,
+button:has(svg):hover {
+  color: var(--accent-color-2);
 }
 
 button:has(svg) {
@@ -18,55 +35,124 @@ button:has(svg) {
   border: none;
   padding: 0;
   margin: 0;
-  color: white;
+  color: var(--accent-color-1);
   width: fit-content;
   height: fit-content;
+  cursor: pointer;
 }
 
 svg {
-  width: 1.5rem;
-  height: auto;
+  height: 100%;
+  width: auto;
+}
+
+/* ----- Estrutura Principal ----- */
+header #div-top-bar {
+  padding: 1rem 1.5rem;
+}
+
+main {
+  flex: 1;
+  padding: 0rem 1.5rem 1rem;
+}
+
+/* --- Tabelas --- */
+table {
+  width: auto;
+  border-collapse: collapse; /* Colapsa bordas adjacentes em uma só */
+}
+
+thead tr,
+tbody tr:not(:last-child) {
+  border-bottom: 1px solid var(--accent-color-1);
+}
+
+th,
+td {
+  padding: 0.5rem;
+  height: 100%;
+  vertical-align: middle;
+}
+
+th {
+  width: auto;
+}
+
+/* Ímpar */
+tbody tr:nth-child(odd) td {
+  background-color: var(--bg-color-2);
+}
+
+/* Par */
+thead tr th,
+tbody tr:nth-child(even) td {
+  background-color: var(--bg-color-3);
 }
 
 /* ----- Formulários ----- */
 form {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 select,
 input {
-  border: 1px solid white;
+  border: 1px solid var(--accent-color-1);
   background-color: transparent;
   border-radius: 0.5rem;
-  color: white;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
+  color: var(--accent-color-1);
+  font-size: 1.25rem;
+  padding: 0.6rem 0.8rem;
+  width: 100%;
+  max-width: 100%;
 }
 
-input {
+input[type="submit"] {
+  margin-top: 1.5rem;
 }
 
 option {
-  background-color: black;
+  background-color: var(--bg-color-1);
+}
+
+select {
+  min-height: 2.25rem;
 }
 
 .escondido {
   display: none;
 }
 
+hr,
+section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+hr {
+  margin-top: 1rem;
+  border: none;
+  border-top: 1px solid var(--accent-color-1);
+}
+
+.div-container-tabelas {
+  width: 100%;
+  overflow: auto;
+}
+
 /* ----- Modais ----- */
 .modal {
   display: none; /* Oculto por padrão */
   position: fixed; /* Fica fixo */
-  z-index: 1; /* Aparece sobre os demais */
+  z-index: 1000; /* Aparece sobre os demais */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Permite scroll se necessário */
   background-color: rgba(0, 0, 0, 0.4); /* Cor de fundo */
+  padding: 1rem;
 }
 
 .modal-conteudo {
@@ -74,15 +160,13 @@ option {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: auto auto; /* 15% do topo e centralizada horizontalmente */
-  width: fit-content;
-  height: fit-content;
-  max-width: 80dvw;
-  max-height: 80dvh;
+  margin: auto auto;
+  max-width: min(90dvw, 600px);
+  max-height: 90dvh;
   padding: 1.5rem;
-  border: 1px solid white;
+  border: 1px solid var(--accent-color-1);
   border-radius: 1rem;
-  background-color: black;
+  background-color: var(--bg-color-1);
   overflow: auto;
   scrollbar-width: thin;
 }
@@ -93,6 +177,8 @@ option {
   justify-content: space-between;
   align-items: center;
   position: sticky;
+  top: 0;
+  background-color: inherit;
 }
 
 .div-top-modal h3 {
@@ -108,7 +194,6 @@ option {
 
 .div-top-modal .button-fechar:hover,
 .div-top-modal .button-fechar:focus {
-  color: red;
   text-decoration: none;
   cursor: pointer;
 }
@@ -120,41 +205,147 @@ option {
 /* ----- <div> Top Bar, barra de título ----- */
 #div-top-bar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-color-2);
+  gap: 0.75rem;
 }
 
-#div-top-bar ul {
+#div-top-bar h1 {
+  margin: 0;
+  flex: 1;
+  white-space: nowrap;
+}
+
+#ul-top-bar-links {
   list-style: none;
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   padding: 0 0.5rem;
+  margin: 0;
 }
 
-#div-top-bar ul li {
-  display: inline-flex;
-  height: 100%;
+#ul-top-bar-links li {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #div-top-bar a {
-  color: white;
+  color: var(--accent-color-1);
 }
 
-#div-top-bar a:hover {
-  color: red;
+/* ----- Botão de Tema ----- */
+#button-tema {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  height: 3.5rem;
+  width: 3.5rem;
+  border: none;
+  border-radius: 50vh;
+  background-color: var(--bg-color-4);
+  color: var(--bg-color-1);
+  padding: 0.75rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-hr {
-  margin-top: 1rem;
+#button-tema:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-hr,
-section {
-  max-width: 800px;
-  margin: 0 auto;
+#button-tema > svg {
+  width: 100%;
+  aspect-ratio: 1 / 1;
 }
 
-select {
-  min-height: 2.25rem;
+/* ----- Responsividade ----- */
+
+/* Telas pequenas (smartphones) */
+@media (max-width: 600px) {
+  #div-top-bar {
+    align-items: flex-start;
+  }
+
+  #div-top-bar {
+    font-size: 1.75rem;
+    line-height: 1.25;
+  }
+
+  #button-collapse-expand-links {
+    display: block;
+    /* largura = tamanho da fonte * altura da linha */
+    width: calc(1.75rem * 1.25);
+    aspect-ratio: 1 / 1;
+    padding: 0.2rem;
+  }
+
+  #button-collapse-expand-links svg {
+    width: 100%;
+  }
+
+  #ul-top-bar-links.escondido {
+    display: none;
+  }
+
+  #ul-top-bar-links {
+    width: 100%;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #ul-top-bar-links li {
+    padding: 0.5rem 0;
+  }
+
+  #ul-top-bar-links li + li {
+    border-top: 1px solid var(--accent-color-1);
+  }
+
+  .modal-conteudo {
+    max-width: 95dvw;
+    max-height: 90dvh;
+  }
+
+  #button-tema {
+    height: 3rem;
+    width: 3rem;
+  }
+}
+
+/* Telas médias (monitores 1000p ou mais) */
+@media (min-width: 1001px) {
+  hr,
+  section {
+    max-width: 800px;
+  }
+}
+
+/* Telas médias-grandes (monitores 1200p ou mais) */
+@media (min-width: 1201px) {
+  hr,
+  section {
+    max-width: 1000px;
+  }
+}
+
+/* Telas grandes (monitores 1440p ou mais) */
+@media (min-width: 1440px) {
+  main {
+    padding: 0 4rem 2rem;
+  }
+
+  hr,
+  section {
+    max-width: 1200px;
+  }
+
+  #div-top-bar {
+    padding: 1rem 3rem;
+  }
 }
