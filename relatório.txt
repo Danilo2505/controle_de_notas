@@ -29,3 +29,7 @@
 05/10
 - Melhora no visual (CSS)
     - Danilo
+
+06/10
+- Implementação do script de ordenação de tabelas em index.html
+    - Danilo
