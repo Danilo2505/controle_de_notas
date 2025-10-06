@@ -43,7 +43,7 @@ async function carregarDadosDisponiveis(modoSelecionado) {
     case "aluno":
       listaDados = await listarDadosFlask("alunos");
       listaDados.forEach((dado) => {
-        option = new Option(dado.nome, dado.id_aluno);
+        option = new Option(`${dado.nome} | ${dado.nome_sala}`, dado.id_aluno);
         selectDadoExcluido.add(option);
       });
       break;
@@ -64,7 +64,6 @@ async function carregarDadosDisponiveis(modoSelecionado) {
 }
 
 function definirModoExclusao(modoSelecionado) {
-  // /*
   selectorsSectionsModosExclusao.forEach((modoExclusao) => {
     document.querySelector(modoExclusao).classList.add("escondido");
   });
@@ -72,7 +71,6 @@ function definirModoExclusao(modoSelecionado) {
   document
     .querySelector(`#section-${modoSelecionado}`)
     .classList.remove("escondido");
-  // */
 }
 
 selectModoExclusao.addEventListener("change", async function () {
@@ -89,7 +87,6 @@ async function atualizarInterface() {
 
 // ----- Fomulários -----
 // --- Submissões ---
-// /*
 formDisciplina.addEventListener("submit", async (e) => {
   e.preventDefault();
   const idDisciplina = selectDadoExcluido.value;
@@ -139,7 +136,6 @@ formNota.addEventListener("submit", async (e) => {
     console.error("Erro ao atualizar nota:", erro);
   }
 });
-// */
 
 // Primeira execução
 atualizarInterface();

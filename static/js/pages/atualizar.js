@@ -43,7 +43,7 @@ async function carregarDadosDisponiveis(modoSelecionado) {
     case "aluno":
       listaDados = await listarDadosFlask("alunos");
       listaDados.forEach((dado) => {
-        option = new Option(dado.nome, dado.id_aluno);
+        option = new Option(`${dado.nome} | ${dado.nome_sala}`, dado.id_aluno);
         selectDadoEditado.add(option);
       });
       break;

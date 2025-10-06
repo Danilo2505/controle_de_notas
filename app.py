@@ -593,8 +593,20 @@ def listar_itens():
                 403,
             )
 
-        # Monta a query dinamicamente (com filtros opcionais)
-        query = f"SELECT * FROM {nome_tabela}"
+        # Monta a query dinamicamente de acordo com a tabela (com filtros opcionais)
+        if nome_tabela == "alunos":
+            query = """
+                SELECT 
+                    alunos.id_aluno,
+                    alunos.nome,
+                    alunos.id_sala,
+                    salas.nome AS nome_sala
+                FROM alunos
+                LEFT JOIN salas ON alunos.id_sala = salas.id_sala
+            """
+        else:
+            query = f"SELECT * FROM {nome_tabela}"
+
         valores = []
 
         if filtros and isinstance(filtros, dict):
